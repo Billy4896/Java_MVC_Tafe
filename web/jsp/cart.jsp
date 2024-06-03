@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
     <title>Untitled Document</title>
@@ -33,46 +36,34 @@
         <div align="center"><font face="Arial, Helvetica, sans-serif" size="3">Remove</font></div>
       </td>
     </tr>
-    <%
-      Map items = (Map)session.getAttribute("cart");
-      Set entries = items.entrySet();
-      Iterator iter = entries.iterator();
-      double totalCostOfOrder = 0.00;
-      Book book = null;
-      CartItem item = null;
-      while(iter.hasNext()) {
-	Map.Entry entry = (Map.Entry)iter.next();
-	String isbn = (String)entry.getKey();
-	item = (CartItem)entry.getValue();
-        book = item.getBook();
-	String title = book.getTitle();
-	String price = book.getDollarPrice();
-	int quantity = item.getQuantity();
-        double cost =  item.getOrderCost();
-        String dollarCost = item.getDollarOrderCost();
-        totalCostOfOrder +=cost;
-     %>
-    <tr bgcolor="#F0F0F0"> 
-      <td width="13%" height="5"><%= isbn %></td>
-      <td width="34%" height="5"><%= title %></td>
-      <td width="13%" height="5"><%= price %></td>
-      <td width="9%" height="5"> 
-        <input type="text" name=<%= isbn %> size="2" value=<%= quantity %> maxlength="4">
-      </td>
-      <td width="20%" height="5"> 
-        <div align="right"><%= dollarCost %></div>
-      </td>
-      <td width="11%" height="5"> 
-        <div align="center"> 
-          <input type="checkbox" name="remove" value=<%= isbn %>>
-        </div>
-      </td>
-    </tr>
-    <% 
-       } // end while  
-        DecimalFormat dollars = new DecimalFormat("0.00");
-    	String totalOrderInDollars =("ORDER TOTAL   " +"$" + dollars.format (totalCostOfOrder));
-     %>
+ <c:set var="totalCostOfOrder" value="0.00" />
+        <c:forEach var="entry" items="${sessionScope.cart}">
+            <c:set var="isbn" value="${entry.key}" />
+            <c:set var="item" value="${entry.value}" />
+            <c:set var="book" value="${item.book}" />
+            <c:set var="title" value="${book.title}" />
+            <c:set var="price" value="${book.dollarPrice}" />
+            <c:set var="quantity" value="${item.quantity}" />
+            <c:set var="cost" value="${item.orderCost}" />
+            <c:set var="dollarCost" value="${item.dollarOrderCost}" />
+            <c:set var="totalCostOfOrder" value="${totalCostOfOrder + cost}" />
+            <tr bgcolor="#F0F0F0">
+                <td width="13%" height="5">${isbn}</td>
+                <td width="34%" height="5">${title}</td>
+                <td width="13%" height="5">${price}</td>
+                <td width="9%" height="5">
+                    <input type="text" name="${isbn}" size="2" value="${quantity}" maxlength="4">
+                </td>
+                <td width="20%" height="5">
+                    <div align="right">${dollarCost}</div>
+                </td>
+                <td width="11%" height="5">
+                    <div align="center">
+                        <input type="checkbox" name="remove" value="${isbn}">
+                    </div>
+                </td>
+            </tr>
+        </c:forEach>
     <tr bgcolor="#E4E4E4"> 
       <td width="13%" height="2" bordercolor="#CCCCCC"> 
         <input type="submit" name="Submit" value="Update Cart">
@@ -81,7 +72,7 @@
       <td width="13%" height="2" bordercolor="#CCCCCC">&nbsp; </td>
       <td width="9%" height="2" bordercolor="#CCCCCC">&nbsp; </td>
       <td width="20%" height="2" bordercolor="#CCCCCC"> 
-        <div align="right"><b><%= totalOrderInDollars %></b></div>
+        <div align="right"><b><fmt:formatNumber value="${totalCostOfOrder}" type="number" pattern="0.00"/></b></div>
       </td>
       <td width="11%" height="2" bordercolor="#CCCCCC">&nbsp;</td>
     </tr>

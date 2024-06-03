@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 
     <head>
@@ -24,29 +27,16 @@
                     </td>
                 </tr>
 
-                <%
-                    Map items = (Map) session.getAttribute("cart");
-                    Set entries = items.entrySet();
-                    Iterator iter = entries.iterator();
-                    double totalCostOfOrder = 0.00;
-                    Book book = null;
-                    CartItem item = null;
-
-                    while (iter.hasNext()) {
-                        Map.Entry entry = (Map.Entry) iter.next();
-                        item = (CartItem) entry.getValue();
-                        double cost = item.getOrderCost();
-                        totalCostOfOrder += cost;
-                %>
+            <c:set var="totalCostOfOrder" value="0.00" />
+            <c:forEach var="entry" items="${sessionScope.cart}">
+                <c:set var="item" value="${entry.value}" />
+                <c:set var="cost" value="${item.orderCost}" />
+                <c:set var="totalCostOfOrder" value="${totalCostOfOrder + cost}" />
                 <tr>
-                    <td bgcolor="#F0F0F0"><%= item%></td>
+                    <td bgcolor="#F0F0F0">${item}</td>
                 </tr>
-                <%
-                    } // end while
-                    DecimalFormat dollars = new DecimalFormat("0.00");
-                    String totalOrderInDollars = (dollars.format(totalCostOfOrder));
-                %>  
-
+            </c:forEach>
+               
             </table>
 
             <p style = "font-weight: bold">Please input the following information.</p>
@@ -124,7 +114,7 @@
                 <tr>
                     <td class = "right bold">Order Amount $</td>
                     <td>
-                        <input type="text" name="amount" value=<%= totalOrderInDollars%> />
+                         <input type="text" name="amount" value="${totalCostOfOrder}" readonly />
                     </td>
                 </tr>
             </table>
