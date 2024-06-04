@@ -8,6 +8,30 @@
      <servlet>
 	<servlet-name>main</servlet-name>
 	<servlet-class>controller.FrontController</servlet-class>
+        <init-param>
+            <param-name>default_action</param-name>
+            <param-value>default</param-value>
+        </init-param>
+        <init-param>
+            <param-name>add_to_cart_action</param-name>
+            <param-value>add_to_cart</param-value>
+        </init-param>
+        <init-param>
+            <param-name>checkout_action</param-name>
+            <param-value>checkout</param-value>
+        </init-param>
+        <init-param>
+            <param-name>continue_action</param-name>
+            <param-value>continue</param-value>
+        </init-param>
+        <init-param>
+            <param-name>update_cart_action</param-name>
+            <param-value>update_cart</param-value>
+        </init-param>
+        <init-param>
+            <param-name>view_cart_action</param-name>
+            <param-value>view_cart</param-value>
+        </init-param>
   </servlet>
 
   <servlet-mapping>

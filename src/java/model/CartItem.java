@@ -5,11 +5,11 @@ import java.io.*;
 
 public class CartItem implements Serializable {
 
-    private Book book;
+    private Tbooks book;
     private int quantity = 0;
     private double costOfItem = 0.00;
 
-    public CartItem(Book book) {
+    public CartItem(Tbooks book) {
         this.book = book;
     }
 
@@ -36,7 +36,7 @@ public class CartItem implements Serializable {
         return (book + "          " + "quantity: " + quantity);
     }
 
-    public Book getBook() {
+    public Tbooks getBook() {
         return book;
     }
 

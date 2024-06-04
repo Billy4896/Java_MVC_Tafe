@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.Book;
 import model.CartItem;
+import model.Tbooks;
 
 public class AddToCartAction implements IDispatcher {
     @Override
@@ -28,7 +29,7 @@ public class AddToCartAction implements IDispatcher {
                 CartItem item = (CartItem) cart.get(isbn);
                 item.setQuantity(quantity);
             } else {
-                Book book = getBookFromList(isbn, session);
+                Tbooks book = getBookFromList(isbn, session);
                 CartItem item = new CartItem(book);
                 item.setQuantity(quantity);
                 cart.put(isbn, item);
@@ -38,13 +39,28 @@ public class AddToCartAction implements IDispatcher {
         return nextPage;
     }
 
-    private Book getBookFromList(String isbn, HttpSession session) {
-        List<Book> list = (List<Book>) session.getAttribute("Books");
-        for (Book book : list) {
-            if (isbn.equals(book.getIsbn())) {
-                return book;
+//    private Tbooks getBookFromList(String isbn, HttpSession session) {
+//        List<Tbooks> list = (List<Tbooks>) session.getAttribute("Books");
+//        for (Tbooks book : list) {
+//            if (isbn.equals(book.getIsbn())) {
+//                return book;
+//            }
+//        }
+//        return null;
+//    }
+    
+    private Tbooks getBookFromList(String isbn, HttpSession session) {
+    List<Tbooks> list = (List<Tbooks>) session.getAttribute("Books");
+    Tbooks book = null;
+    if (list != null) {
+        for (Tbooks b : list) {
+            if (isbn.equals(b.getIsbn())) {
+                book = b;
+                break;
             }
         }
-        return null;
     }
+    return book;
+}
+    
 }

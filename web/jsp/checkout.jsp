@@ -3,10 +3,7 @@
 
 <html>
 
-    <head>
-        <title>Order</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    </head>
+    <%@ include file="/jsp/header.jsp" %>
 
     <%@ page import="model.*" %>
     <%@ page import="java.util.*"%>
@@ -122,6 +119,7 @@
             <!-- enable user to submit the form  -->
             <p><input type = "submit" value = "Submit" /></p>
         </form>
+        <%@ include file="/jsp/footer.jsp" %>
     </body>
 
 </html>

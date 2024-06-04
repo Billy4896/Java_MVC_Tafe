@@ -1,13 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-
 <html>
-    <head>
-        <title>Untitled Document</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    </head>
+    <%@ include file="/jsp/header.jsp" %>
     <body bgcolor="#FFFFFF" text="#000000">
         <p>
             <%@ page import="model.*" %>
@@ -73,7 +68,7 @@
                         <td width="10%">${book.isbn}</td>
                         <td width="37%">${book.title}</td>
                         <td width="24%">${book.author}</td>
-                        <td width="13%">${book.dollarPrice}</td>
+                        <td width="13%">${book.price}</td>
                         <td width="10%"> 
                             <select name="${book.isbn}" size="1">
                                 <option value="1">1</option>
@@ -88,7 +83,7 @@
                         </td>
                     </tr>
                 </c:forEach>
-                </tr>
+              
                 <tr> 
                     <td width="10%"> 
                         <input type="submit" name="Details" value="add_to_cart">
@@ -102,5 +97,6 @@
             </table>
         </form>
         <p><a href="./books?action=view_cart">View Shopping Cart</a></p>
+        <%@ include file="/jsp/footer.jsp" %>
     </body>
 </html>

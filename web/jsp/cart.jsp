@@ -2,10 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<head>
-    <title>Untitled Document</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-</head>
+<%@ include file="/jsp/header.jsp" %>
 
 <%@ page import="model.*" %>
 <%@ page import="java.util.*"%>
@@ -42,7 +39,7 @@
             <c:set var="item" value="${entry.value}" />
             <c:set var="book" value="${item.book}" />
             <c:set var="title" value="${book.title}" />
-            <c:set var="price" value="${book.dollarPrice}" />
+            <c:set var="price" value="${book.price}" />
             <c:set var="quantity" value="${item.quantity}" />
             <c:set var="cost" value="${item.orderCost}" />
             <c:set var="dollarCost" value="${item.dollarOrderCost}" />
@@ -80,5 +77,6 @@
 </form>
 <p><a href="./books?action=continue">Continue Shopping</a></p>
 <p><a href="./books?action=checkout">Check Out</a></p>
+<%@ include file="/jsp/footer.jsp" %>
 </body>
 </html>
