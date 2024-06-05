@@ -13,6 +13,16 @@ import model.CartItem;
 import model.Tbooks;
 
 public class AddToCartAction implements IDispatcher {
+    
+    /**
+    * Adds selected books to the shopping cart stored in the session.
+    * 
+    * @param request  the HttpServletRequest object that contains the request the client has made of the servlet
+    * @param response the HttpServletResponse object that contains the response the servlet sends to the client
+    * @return a String representing the path to the next page (the titles page)
+    * @throws ServletException if the request for the POST could not be handled
+    * @throws IOException if an input or output error is detected when the servlet handles the request
+    */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -39,28 +49,20 @@ public class AddToCartAction implements IDispatcher {
         return nextPage;
     }
 
-//    private Tbooks getBookFromList(String isbn, HttpSession session) {
-//        List<Tbooks> list = (List<Tbooks>) session.getAttribute("Books");
-//        for (Tbooks book : list) {
-//            if (isbn.equals(book.getIsbn())) {
-//                return book;
-//            }
-//        }
-//        return null;
-//    }
-    
+    /**
+    * Retrieves a book from the list of books stored in the session based on its ISBN.
+    * 
+    * @param isbn the ISBN of the book to be retrieved
+    * @param session the HttpSession object that contains the session the client has with the servlet
+    * @return the Tbooks object representing the book with the specified ISBN, or null if not found
+    */
     private Tbooks getBookFromList(String isbn, HttpSession session) {
-    List<Tbooks> list = (List<Tbooks>) session.getAttribute("Books");
-    Tbooks book = null;
-    if (list != null) {
-        for (Tbooks b : list) {
-            if (isbn.equals(b.getIsbn())) {
-                book = b;
-                break;
+        List<Tbooks> list = (List<Tbooks>) session.getAttribute("Books");
+        for (Tbooks book : list) {
+            if (isbn.equals(book.getIsbn())) {
+                return book;
             }
         }
+        return null;
     }
-    return book;
-}
-    
 }

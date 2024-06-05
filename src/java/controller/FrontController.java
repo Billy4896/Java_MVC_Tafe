@@ -57,7 +57,16 @@ public class FrontController extends HttpServlet {
         processRequest(request, response);
     }
 
-    // Unified method to process both GET and POST requests
+    
+    /**
+    * Unified method to process both GET and POST requests.
+    * Determines the appropriate action to take based on the "action" parameter and forwards the request to the corresponding page.
+    * 
+    * @param request  the HttpServletRequest object that contains the request the client has made of the servlet
+    * @param response the HttpServletResponse object that contains the response the servlet sends to the client
+    * @throws ServletException if the request could not be handled
+    * @throws IOException if an input or output error is detected when the servlet handles the request
+    */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

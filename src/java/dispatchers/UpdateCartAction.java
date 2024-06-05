@@ -11,6 +11,15 @@ import javax.servlet.http.HttpSession;
 import model.CartItem;
 
 public class UpdateCartAction implements IDispatcher {
+    /**
+    * Updates the shopping cart by removing selected books and updating the quantities of the remaining books.
+    * 
+    * @param request  the HttpServletRequest object that contains the request the client has made of the servlet
+    * @param response the HttpServletResponse object that contains the response the servlet sends to the client
+    * @return a String representing the path to the cart page
+    * @throws ServletException if the request for the POST could not be handled
+    * @throws IOException if an input or output error is detected when the servlet handles the request
+    */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
